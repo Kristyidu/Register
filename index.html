@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-top: 40px;
+            color: rgb(14, 13, 13);
+        }
+
+        a {
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        form div {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"]
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"],
+        #showPass {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #00d9ff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="reset"],
+        #showPass {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover,
+        #showPass:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        span {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .button-group {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        }
+
+        .subtitle{
+            color: rgb(2, 48, 90);
+        }
+
+        .lists li {
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+        font-size: 1rem;
+        color: #444;
+        align-items: normal;
+        }
+
+        .lists {
+        list-style-type: none; 
+        text-align: left   
+        } 
+
+    </style>
+</head>
+<body>
+
+    <h1>REGISTER</h1>
+    
+    <a href="https://github.com/Kristyidu/JavaScript-Assignments" target="_blank">Click On My Github</a>
+
+    <div id="result"></div>
+    
+    <form>
+        <div id="fullname">
+            <label>Full Name</label>
+            <input type="text" name="fullname" placeholder="Surname First">
+        </div>
+
+        <div id="dateofbirth">
+            <label>Date of Birth</label>
+            <input type="date" name="dateofbirth" placeholder="01/01/1900">
+        </div>
+
+        <div id="email">
+            <label>Email Address</label>
+            <input type="email" name="email" value="xtyidu@yahoo.com" placeholder="xty@yahoo.com">
+        </div>
+
+        <div id="password">
+            <label>Password</label>
+            <input type="password" name="password" value="XtY@123-*" placeholder="Not less than 7 characters">
+            <button id="showPass">Show Password</button>
+        </div>
+
+        <div class="button-group">
+            <input type="submit" value="Submit">
+            <input type="reset" value="Clear">
+        </div>
+    </form>
+
+    <script>
+        const link = document.querySelector('a');
+        link.addEventListener('click', handleLinkClick);
+
+        function handleLinkClick(e) {
+            e.preventDefault();
+            console.log(e.target);
+            console.log('Link clicked');
+            console.log('Something');
+        }
+
+        // Handle form submit
+        const submitBtn = document.querySelector('input[type=submit]');
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Clear existing error messages
+        document.querySelectorAll('span.error').forEach(span => span.remove());
+
+        const fullname = document.querySelector('input[type=text]').value.trim();
+        const dateofbirth = document.querySelector('input[type=date]').value.trim();
+        const email = document.querySelector('input[type=email]').value.trim();
+        const passwordField = document.querySelector('input[type=password]');
+        const password = passwordField.value.trim();
+
+        let isValid = true;
+
+            if (!fullname) {
+                showError('fullname', 'Fullname cannot be empty');
+                isValid = false;
+            }
+
+            if (!dateofbirth) {
+                showError('dateofbirth', 'You must be above 18 years');
+                isValid = false;
+            }
+
+            if (!email) {
+                showError('email', 'Email cannot be empty');
+                isValid = false;
+            }
+
+            if (!password) {
+                showError('password', 'Password cannot be empty');
+                isValid = false;
+            } else if (password.length < 8) {
+                showError('password', 'Password cannot be less than 8 characters');
+                isValid = false;
+            }
+
+        const result = document.getElementById('result');
+            if (isValid) {
+                result.innerHTML = `
+                    <h2 class ="subtitle">Applicant's Information</h2>
+                    <ul class ="lists">
+                        <li>Name: ${fullname}</li>
+                        <li>Date Of Birth: ${dateofbirth}</li>
+                        <li>Email: ${email}</li>
+                        <li>Password: ${password}</li>
+                    </ul>`;
+                document.querySelector('form').reset();
+            } else {
+                result.innerHTML = `<span style='color:#ff0000'>Please fill all fields correctly</span>`;
+            }
+        });
+
+        // Password visibility toggle
+        const showPassBtn = document.querySelector("#showPass");
+        showPassBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const passwordField = document.querySelector('input[name=password]');
+            const isHidden = passwordField.type === "password";
+            passwordField.type = isHidden ? "text" : "password";
+            showPassBtn.innerText = isHidden ? 'Hide Password' : 'Show Password';
+        });
+
+        // Helper function to show error message
+        function showError(fieldId, message) {
+            const span = document.createElement('span');
+            span.className = 'error';
+            span.style.color = '#ff0000';
+            span.innerText = message;
+            document.getElementById(fieldId).appendChild(span);
+        }
+
+    </script>
+   
+</body>
+</html>
