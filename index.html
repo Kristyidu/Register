@@ -128,8 +128,6 @@
     
     <a href="https://github.com/Kristyidu/Register" target="_blank">Click On My Github</a>
 
-    <div id="result"></div>
-    
     <form>
         <div id="fullname">
             <label>Full Name</label>
@@ -157,6 +155,8 @@
             <input type="reset" value="Clear">
         </div>
     </form>
+
+    <div id="result"></div>
 
     <script>
         const link = document.querySelector('a');
@@ -211,12 +211,13 @@
         const result = document.getElementById('result');
             if (isValid) {
                 result.innerHTML = `
-                    <h2 class ="subtitle">Applicant's Information</h2>
-                    <ul class ="lists">
-                        <li>Name: ${fullname}</li>
-                        <li>Date Of Birth: ${dateofbirth}</li>
-                        <li>Email: ${email}</li>
-                        <li>Password: ${password}</li>
+                    <h2 class="subtitle" style="color: green;">Congratulations! Your form was submitted successfully</h2>
+                    <h3 class="subtitle">Applicant's Information</h3>
+                    <ul class="lists">
+                        <li><strong>Name:</strong> ${fullname}</li>
+                        <li><strong>Date Of Birth:</strong> ${dateofbirth}</li>
+                        <li><strong>Email:</strong> ${email}</li>
+                        <li><strong>Password:</strong> ${password}</li>
                     </ul>`;
                 document.querySelector('form').reset();
             } else {
